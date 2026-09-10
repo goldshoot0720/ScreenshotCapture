@@ -15,7 +15,7 @@
         <Grid ColumnDefinitions="*,Auto">
           <StackPanel Spacing="3">
             <TextBlock Text="目前已開啟的 App" FontSize="16" FontWeight="SemiBold" Foreground="#182230" />
-            <TextBlock Text="包含背景與最小化視窗；不會顯示 ScreenshotCapture 本身" FontSize="13" Foreground="#667085" />
+            <TextBlock Text="僅顯示仍可切換至前台的背景或最小化 App；不顯示已關閉程式" FontSize="13" Foreground="#667085" />
           </StackPanel>
           <Button Grid.Column="1" Click="RefreshWindows" Padding="14,8">重新整理</Button>
         </Grid>
@@ -27,7 +27,7 @@
                 <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
                   <StackPanel Spacing="2">
                     <TextBlock Text="{Binding Title}" FontWeight="SemiBold" Foreground="#182230" TextTrimming="CharacterEllipsis" />
-                    <TextBlock Text="{Binding ProcessName}" FontSize="12" Foreground="#667085" />
+                    <TextBlock Text="{Binding DisplayProcessName}" FontSize="12" Foreground="#667085" />
                   </StackPanel>
                   <TextBlock Grid.Column="1" Text="{Binding Size}" VerticalAlignment="Center" FontSize="12" Foreground="#98A2B3" />
                 </Grid>

@@ -12,6 +12,7 @@ internal static class WindowCatalog
     public static IReadOnlyList<CaptureTarget> GetCaptureTargets()
     {
         var ownProcessId = Environment.ProcessId;
+        var foregroundWindow = GetForegroundWindow();
         var result = new List<CaptureTarget>();
         EnumWindows((window, _) =>
         {
@@ -29,7 +30,10 @@ internal static class WindowCatalog
             try
             {
                 var process = Process.GetProcessById((int)processId);
-                result.Add(new CaptureTarget(window, title, process.ProcessName, width, height));
+                var state = IsIconic(window)
+                    ? "已最小化"
+                    : window == foregroundWindow ? "目前前景" : "背景中";
+                result.Add(new CaptureTarget(window, title, process.ProcessName, width, height, state));
             }
             catch (ArgumentException) { }
             return true;
@@ -50,6 +54,8 @@ internal static class WindowCatalog
 
     [DllImport("user32.dll")] private static extern bool EnumWindows(EnumWindowsProc callback, nint lParam);
     [DllImport("user32.dll")] private static extern bool IsWindowVisible(nint hWnd);
+    [DllImport("user32.dll")] private static extern bool IsIconic(nint hWnd);
+    [DllImport("user32.dll")] private static extern nint GetForegroundWindow();
     [DllImport("user32.dll", CharSet = CharSet.Unicode)] private static extern int GetWindowText(nint hWnd, StringBuilder text, int maxCount);
     [DllImport("user32.dll")] private static extern int GetWindowTextLength(nint hWnd);
     [DllImport("user32.dll")] private static extern uint GetWindowThreadProcessId(nint hWnd, out uint processId);
