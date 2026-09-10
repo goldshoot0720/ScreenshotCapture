@@ -14,8 +14,8 @@
       <Grid RowDefinitions="Auto,*,Auto" RowSpacing="14">
         <Grid ColumnDefinitions="*,Auto">
           <StackPanel Spacing="3">
-            <TextBlock Text="可擷取的視窗" FontSize="16" FontWeight="SemiBold" Foreground="#182230" />
-            <TextBlock Text="僅顯示有標題的外部應用程式視窗" FontSize="13" Foreground="#667085" />
+            <TextBlock Text="目前已開啟的 App" FontSize="16" FontWeight="SemiBold" Foreground="#182230" />
+            <TextBlock Text="包含背景與最小化視窗；不會顯示 ScreenshotCapture 本身" FontSize="13" Foreground="#667085" />
           </StackPanel>
           <Button Grid.Column="1" Click="RefreshWindows" Padding="14,8">重新整理</Button>
         </Grid>

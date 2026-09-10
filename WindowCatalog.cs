@@ -35,7 +35,8 @@ internal static class WindowCatalog
             return true;
         }, IntPtr.Zero);
 
-        return result.OrderBy(x => x.ProcessName).ThenBy(x => x.Title).ToList();
+        // EnumWindows returns top-level windows in z-order, keeping recently active background apps near the top.
+        return result;
     }
 
     private static string ReadWindowText(nint window)
