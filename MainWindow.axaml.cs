@@ -12,9 +12,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 {
     private CaptureTarget? _selectedWindow;
     private string _status = "請從清單選取要擷取的 App。";
-    private string _lastCaptureDirectory = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.MyPictures),
-        "ScreenshotCapture");
+    private string _lastCaptureDirectory = CaptureFolder.DefaultPath;
 
     public ObservableCollection<CaptureTarget> Windows { get; } = [];
 
@@ -38,6 +36,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         DataContext = this;
         LoadWindows();
     }
+
+    internal void SetStatus(string status) => Status = status;
 
     private void RefreshWindows(object? sender, RoutedEventArgs e) => LoadWindows();
 
