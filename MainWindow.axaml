@@ -1,0 +1,50 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ScreenshotCapture.MainWindow"
+        x:CompileBindings="False"
+        Width="680" Height="560" MinWidth="560" MinHeight="460"
+        Title="Screenshot Capture">
+  <Grid RowDefinitions="Auto,*,Auto" Margin="32" RowSpacing="24">
+    <StackPanel Spacing="8">
+      <TextBlock Text="擷取指定視窗" FontSize="28" FontWeight="SemiBold" Foreground="#182230" />
+      <TextBlock Text="選取想儲存畫面的 App。這個程式不會出現在清單中。" Foreground="#475467" FontSize="14" />
+    </StackPanel>
+
+    <Border Grid.Row="1" Background="White" BorderBrush="#D0D5DD" BorderThickness="1" CornerRadius="14" Padding="20">
+      <Grid RowDefinitions="Auto,*,Auto" RowSpacing="14">
+        <Grid ColumnDefinitions="*,Auto">
+          <StackPanel Spacing="3">
+            <TextBlock Text="可擷取的視窗" FontSize="16" FontWeight="SemiBold" Foreground="#182230" />
+            <TextBlock Text="僅顯示有標題的外部應用程式視窗" FontSize="13" Foreground="#667085" />
+          </StackPanel>
+          <Button Grid.Column="1" Click="RefreshWindows" Padding="14,8">重新整理</Button>
+        </Grid>
+
+        <ListBox Grid.Row="1" ItemsSource="{Binding Windows}" SelectedItem="{Binding SelectedWindow}" BorderThickness="0" Background="Transparent">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Border Padding="12,10" CornerRadius="8">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                  <StackPanel Spacing="2">
+                    <TextBlock Text="{Binding Title}" FontWeight="SemiBold" Foreground="#182230" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Text="{Binding ProcessName}" FontSize="12" Foreground="#667085" />
+                  </StackPanel>
+                  <TextBlock Grid.Column="1" Text="{Binding Size}" VerticalAlignment="Center" FontSize="12" Foreground="#98A2B3" />
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Border Grid.Row="2" Background="#EFF4FF" CornerRadius="8" Padding="12">
+          <TextBlock Text="擷取期間會暫時將系統主音量設為 0%，完成或失敗後立即還原原本的音量與靜音狀態。" TextWrapping="Wrap" Foreground="#1849A9" FontSize="13" />
+        </Border>
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="16">
+      <TextBlock Text="{Binding Status}" VerticalAlignment="Center" Foreground="#475467" TextWrapping="Wrap" />
+      <Button Grid.Column="1" Classes="primary" Click="CaptureSelectedWindow" Padding="18,10">擷取並儲存 PNG</Button>
+    </Grid>
+  </Grid>
+</Window>
