@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -11,6 +12,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 {
     private CaptureTarget? _selectedWindow;
     private string _status = "請從清單選取要擷取的 App。";
+    private string? _lastCaptureDirectory;
 
     public ObservableCollection<CaptureTarget> Windows { get; } = [];
 
@@ -25,6 +27,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         get => _status;
         set { _status = value; OnPropertyChanged(); }
     }
+
+    public bool CanOpenCaptureFolder => !string.IsNullOrWhiteSpace(_lastCaptureDirectory) && Directory.Exists(_lastCaptureDirectory);
 
     public MainWindow()
     {
@@ -66,11 +70,31 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         {
             Status = "正在擷取… 系統音量會在完成後還原。";
             await WindowCaptureService.CaptureToPngAsync(SelectedWindow, file.Path.LocalPath);
+            _lastCaptureDirectory = Path.GetDirectoryName(file.Path.LocalPath);
+            OnPropertyChanged(nameof(CanOpenCaptureFolder));
             Status = "已儲存擷取畫面，且系統音量已還原。";
         }
         catch (Exception exception)
         {
             Status = $"無法擷取：{exception.Message} 系統音量已還原。";
+        }
+    }
+
+    private void OpenCaptureFolder(object? sender, RoutedEventArgs e)
+    {
+        if (!CanOpenCaptureFolder) return;
+
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = _lastCaptureDirectory!,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception exception)
+        {
+            Status = $"無法開啟截圖資料夾：{exception.Message}";
         }
     }
 
