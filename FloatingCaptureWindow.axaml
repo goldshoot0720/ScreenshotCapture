@@ -5,9 +5,12 @@
         CanResize="False" WindowDecorations="None" ShowInTaskbar="False" Topmost="True"
         Title="快速截圖">
   <Border Margin="4" Background="#155EEF" CornerRadius="20" Padding="6" BoxShadow="0 8 24 0 #40000000">
-    <StackPanel Spacing="2">
-      <Button Click="CaptureCurrentScreen" Background="Transparent" BorderThickness="0" Foreground="White" FontWeight="SemiBold" FontSize="14" Height="42">立即全螢幕截圖</Button>
-      <Button Click="ReturnToApp" Background="#FFFFFF26" BorderThickness="0" Foreground="White" FontSize="12" Height="38">返回 ScreenshotCapture</Button>
-    </StackPanel>
+    <Grid RowDefinitions="Auto,Auto" RowSpacing="2">
+      <Grid ColumnDefinitions="*,Auto">
+        <Button Click="CaptureCurrentScreen" Background="Transparent" BorderThickness="0" Foreground="White" FontWeight="SemiBold" FontSize="14" Height="42">立即全螢幕截圖</Button>
+        <Button Grid.Column="1" Click="CloseFloatingButton" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="18" FontWeight="SemiBold" Width="30" Height="42" ToolTip.Tip="關閉浮動按鈕">×</Button>
+      </Grid>
+      <Button Grid.Row="1" Click="ReturnToApp" Background="#FFFFFF26" BorderThickness="0" Foreground="White" FontSize="12" Height="38">返回 ScreenshotCapture</Button>
+    </Grid>
   </Border>
 </Window>

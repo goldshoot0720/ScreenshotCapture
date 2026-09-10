@@ -17,6 +17,8 @@ public partial class FloatingCaptureWindow : Window
         _mainWindow = mainWindow;
     }
 
+    private void CloseFloatingButton(object? sender, RoutedEventArgs e) => Close();
+
     private void ReturnToApp(object? sender, RoutedEventArgs e)
     {
         _mainWindow?.Show();
