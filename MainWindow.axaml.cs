@@ -11,7 +11,7 @@ namespace ScreenshotCapture;
 public partial class MainWindow : Window, INotifyPropertyChanged
 {
     private CaptureTarget? _selectedWindow;
-    private string _status = "請從清單選取要擷取的 App。";
+    private string _status = "浮動全螢幕截圖按鈕已啟用。";
     private string _lastCaptureDirectory = CaptureFolder.DefaultPath;
 
     public ObservableCollection<CaptureTarget> Windows { get; } = [];

@@ -17,6 +17,12 @@ public partial class FloatingCaptureWindow : Window
         _mainWindow = mainWindow;
     }
 
+    private void ReturnToApp(object? sender, RoutedEventArgs e)
+    {
+        _mainWindow?.Show();
+        _mainWindow?.Activate();
+    }
+
     private async void CaptureCurrentScreen(object? sender, RoutedEventArgs e)
     {
         var sourceHandle = TryGetPlatformHandle()?.Handle ?? nint.Zero;
@@ -28,8 +34,8 @@ public partial class FloatingCaptureWindow : Window
             Hide();
             if (mainWasVisible) _mainWindow!.Hide();
             await Task.Delay(150);
-            await ScreenCaptureService.CaptureDisplayToPngAsync(sourceHandle, path);
-            _mainWindow?.SetStatus("已儲存目前螢幕畫面，且系統音量已還原。");
+            await ScreenCaptureService.CaptureDesktopToPngAsync(path);
+            _mainWindow?.SetStatus("已儲存全螢幕畫面，且系統音量已還原。");
         }
         catch (Exception exception)
         {
