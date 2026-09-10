@@ -3,11 +3,11 @@
         x:Class="ScreenshotCapture.MainWindow"
         x:CompileBindings="False"
         Width="680" Height="560" MinWidth="560" MinHeight="460"
-        Title="Screenshot Capture">
+        Title="Screenshot Capture" Icon="/Assets/capture-buddy.ico">
   <Grid RowDefinitions="Auto,*,Auto" Margin="32" RowSpacing="24">
     <StackPanel Spacing="8">
-      <TextBlock Text="擷取指定視窗" FontSize="28" FontWeight="SemiBold" Foreground="#182230" />
-      <TextBlock Text="選取想儲存畫面的 App。這個程式不會出現在清單中。" Foreground="#475467" FontSize="14" />
+      <TextBlock Text="選擇正在執行的 App" FontSize="28" FontWeight="SemiBold" Foreground="#182230" />
+      <TextBlock Text="背景或最小化的 App 也會顯示；這個程式不會出現在清單中。" Foreground="#475467" FontSize="14" />
     </StackPanel>
 
     <Border Grid.Row="1" Background="White" BorderBrush="#D0D5DD" BorderThickness="1" CornerRadius="14" Padding="20">
